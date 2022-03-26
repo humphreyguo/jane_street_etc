@@ -128,46 +128,40 @@ def main():
                         }
                     )
 
-            if symbol == "VALBZ":
+            # if symbol == "VALBZ":
 
-                def best_price(side):
-                    if message[side]:
-                        return message[side][0][0]
+            #     def best_price(side):
+            #         if message[side]:
+            #             return message[side][0][0]
                 
                 
-                for i in range(len(buy)):
-                    valeSize = message["buy"][i][1]
-                    # size = message[""][i][1]
-                    valbz_bid_price = best_price("buy")
-                    valbz_ask_price = best_price("sell")
+            #     for i in range(len(buy)):
+            #         valeSize = message["buy"][i][1]
+            #         # size = message[""][i][1]
+            #         valbz_bid_price = best_price("buy")
+            #         valbz_ask_price = best_price("sell")
                 
-                    if valbz_bid_price < valeSell and valeSize <= 10:
-                        exchange.send_add_message(order_id=orderId, symbol="VALBZ", dir=Dir.BUY, price=valbz_bid_price, size=valeSize)
-                        sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALBZ", "dir": "BUY", "price": valbz_bid_price, "size": valeSize})
-                        orderId += 1
-                        exchange.send_add_message(order_id=orderId, symbol="VALE", dir=Dir.SELL, price=valeSell, size=valeSize)
-                        sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALE", "dir": "SELL", "price": valeSell, "size": valeSize})
-                        orderId += 1
+            #         if valbz_bid_price < valeSell and valeSize <= 10:
+            #             exchange.send_add_message(order_id=orderId, symbol="VALBZ", dir=Dir.BUY, price=valbz_bid_price, size=valeSize)
+            #             sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALBZ", "dir": "BUY", "price": valbz_bid_price, "size": valeSize})
+            #             orderId += 1
+            #             exchange.send_add_message(order_id=orderId, symbol="VALE", dir=Dir.SELL, price=valeSell, size=valeSize)
+            #             sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALE", "dir": "SELL", "price": valeSell, "size": valeSize})
+            #             orderId += 1
                         
             
-                now = time.time()
+            #     now = time.time()
 
-                if now > vale_last_print_time + 1:
-                    valbz_last_print_time = now
-                    print(
-                        {
-                            "valbz_bid_price": valbz_bid_price,
-                            "valbz_ask_price": valbz_ask_price,
-                        }
-                    )
-                    
-            
-                
-                    
+            #     if now > vale_last_print_time + 1:
+            #         valbz_last_print_time = now
+            #         print(
+            #             {
+            #                 "valbz_bid_price": valbz_bid_price,
+            #                 "valbz_ask_price": valbz_ask_price,
+            #             }
+            #         )
             # if (len(message['buy'] > 0)) :
             #     buyPrice = message['buy'][0][0]
-            
-            
             if (symbol == "BOND"):
                 for i in range(len(buy)):
                     if buy[i][0] > 1000:
@@ -181,12 +175,7 @@ def main():
                         # print(sell[i])
                         exchange.send_add_message(order_id=orderId, symbol="BOND", dir=Dir.BUY, price=sell[i][0], size=sell[i][1])
                         sellOrders.append({"type":"add", "order_id": orderId, "symbol": "BOND", "dir": "BUY", "price": sell[i][0], "size": sell[i][1]})
-                        orderId+=1
-            
-            
-            
-            
-            
+                        orderId+=1            
             message = exchange.read_message()
             
             # print(message) 
