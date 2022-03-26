@@ -66,8 +66,11 @@ def main():
     buyOrders = deque()
     sellOrders = deque()
     
+    valeSell = 999999
+    
     orderId = 1
     while True:
+        
         
         # print(buyOrders)
         # print(sellOrders)
@@ -109,6 +112,8 @@ def main():
 
                 vale_bid_price = best_price("buy")
                 vale_ask_price = best_price("sell")
+                
+                valeSell = vale_ask_price
 
                 now = time.time()
 
@@ -126,9 +131,22 @@ def main():
                 def best_price(side):
                     if message[side]:
                         return message[side][0][0]
+                    
+                size = message["size"]
 
                 valbz_bid_price = best_price("buy")
                 valbz_ask_price = best_price("sell")
+                
+                
+                
+                
+                if valbz_bid_price < valeSell:
+                    exchange.send_add_message(order_id=orderId, symbol="VALBZ", dir=Dir.BUY, price=valbz_bid_price, size=size)
+                    orderId += 1
+                    exchange.send_add_message(order_id=orderId, symbol="VALE", dir=Dir.SELL, price=valeSell, size=size)
+                    orderId += 1
+                    
+                    
 
                 now = time.time()
 
