@@ -282,4 +282,4 @@ if __name__ == "__main__":
         t = Thread(target=main())
         print(f"starting thread {t}")
         t.start()
-    main()
+    # main()
