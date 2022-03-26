@@ -131,7 +131,7 @@ def main():
             for i in range(len(sell)):
                 if sell[i][0] < 1000:
                     sell_trades.append({"type":"add", "symbol": "BOND", "dir": "BUY", "price": sell[i][0], "size": sell[i][1]})
-            return buy_trades + sell_trades
+            # return buy_trades + sell_trades
 
 
 # ~~~~~============== PROVIDED CODE ==============~~~~~
