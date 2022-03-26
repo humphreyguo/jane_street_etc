@@ -126,6 +126,8 @@ def main():
             #     buyPrice = message['buy'][0][0]
             buy = message["buy"]
             sell = message["sell"]
+            print(f"buy is {buy}")
+            print(f"sell is {sell}")
             for i in range(len(buy)):
                 if buy[i][0] > 1000:
                     buyOrders.append({"type":"add", "symbol": "BOND", "dir": "SELL", "price": buy[i][0], "size": buy[i][1]})
