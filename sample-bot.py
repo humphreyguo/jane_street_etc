@@ -121,6 +121,7 @@ def main():
             #     buyPrice = message['buy'][0][0]
             
             message = exchange.read_message()
+            print(message)
             buy = message["buy"]
             sell = message["sell"]
             buy_trades = []
