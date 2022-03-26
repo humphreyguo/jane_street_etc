@@ -68,6 +68,10 @@ def main():
         
     while True:
         
+        print(buyOrders)
+        print(sellOrders)
+
+        
         while len(buyOrders) > 0:
             msg = {
                 "type":"cancel",
@@ -82,8 +86,6 @@ def main():
             };
             exchange._write_message(msg)
             
-        print(buyOrders)
-        print(sellOrders)
         
         message = exchange.read_message()
         
