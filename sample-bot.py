@@ -119,9 +119,6 @@ def main():
                     
             # if (len(message['buy'] > 0)) :
             #     buyPrice = message['buy'][0][0]
-            
-            message = exchange.read_message()
-            print(message)
             buy = message["buy"]
             sell = message["sell"]
             buy_trades = []
@@ -132,6 +129,10 @@ def main():
             for i in range(len(sell)):
                 if sell[i][0] < 1000:
                     sell_trades.append({"type":"add", "symbol": "BOND", "dir": "BUY", "price": sell[i][0], "size": sell[i][1]})
+            
+            message = exchange.read_message()
+            
+            print(message) # is ack message with id
             # return buy_trades + sell_trades
 
 
