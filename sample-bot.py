@@ -62,15 +62,28 @@ def main():
     # message. Sending a message in response to every exchange message will
     # cause a feedback loop where your bot's messages will quickly be
     # rate-limited and ignored. Please, don't do that!
+    
+    buyOrders = deque()
+    sellOrders = deque()
+    
     while True:
-        message = exchange.read_message()
+        
+        while len(buyOrders) > 0:
+            msg = {
+                "type":"cancel",
+                "order_id": buyOrders.popleft()
+            };
+            exchange._write_message(msg)
 
-        # Some of the message types below happen infrequently and contain
-        # important information to help you understand what your bot is doing,
-        # so they are printed in full. We recommend not always printing every
-        # message because it can be a lot of information to read. Instead, let
-        # your code handle the messages and just print the information
-        # important for you!
+        while len(sellOrders) > 0:
+            msg = {
+                "type":"cancel",
+                "order_id": sellOrders.popleft()
+            };
+            exchange._write_message(msg)
+        
+        message = exchange.read_message()
+        
         if message["type"] == "close":
             print("The round has ended")
             break
@@ -81,7 +94,10 @@ def main():
         elif message["type"] == "fill":
             print(message)
         elif message["type"] == "book":
-            if message["symbol"] == "VALE":
+            symbol = message['symbol']
+            
+            
+            if symbol == "VALE":
 
                 def best_price(side):
                     if message[side]:
@@ -100,6 +116,22 @@ def main():
                             "vale_ask_price": vale_ask_price,
                         }
                     )
+                    
+            # if (len(message['buy'] > 0)) :
+            #     buyPrice = message['buy'][0][0]
+            
+            message = exchange.read_message()
+            buy = message['buy']
+            sell = message['sell']
+            buy_trades = []
+            for i in range(len(buy)):
+                if buy[i][0] > 1000:
+                    buy_trades.append({"type":"add", "symbol": "BOND", "dir": "SELL", "price": buy[i][0], "size": buy[i][1]})
+            sell_trades = []
+            for i in range(len(sell)):
+                if sell[i][0] < 1000:
+                    sell_trades.append({"type":"add", "symbol": "BOND", "dir": "BUY", "price": sell[i][0], "size": sell[i][1]})
+            return buy_trades + sell_trades
 
 
 # ~~~~~============== PROVIDED CODE ==============~~~~~
