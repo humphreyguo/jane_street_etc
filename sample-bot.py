@@ -67,6 +67,7 @@ def main():
     sellOrders = deque()
     
     valeSell = 999999
+    valeSize = 999999
     
     orderId = 1
     while True:
@@ -116,7 +117,6 @@ def main():
                 vale_ask_price = best_price("sell")
                 
                 valeSell = vale_ask_price
-
                 now = time.time()
 
                 if now > vale_last_print_time + 1:
@@ -136,19 +136,17 @@ def main():
                 
                 
                 for i in range(len(buy)):
-                    size = message["buy"][i][1]
-                
-
+                    valeSize = message["buy"][i][1]
+                    # size = message[""][i][1]
                     valbz_bid_price = best_price("buy")
                     valbz_ask_price = best_price("sell")
                 
-                
-                    if valbz_bid_price < valeSell:
-                        exchange.send_add_message(order_id=orderId, symbol="VALBZ", dir=Dir.BUY, price=valbz_bid_price, size=size)
-                        sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALBZ", "dir": "BUY", "price": valbz_bid_price, "size": size})
+                    if valbz_bid_price < valeSell and valeSize <= 10:
+                        exchange.send_add_message(order_id=orderId, symbol="VALBZ", dir=Dir.BUY, price=valbz_bid_price, size=valeSize)
+                        sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALBZ", "dir": "BUY", "price": valbz_bid_price, "size": valeSize})
                         orderId += 1
-                        exchange.send_add_message(order_id=orderId, symbol="VALE", dir=Dir.SELL, price=valeSell, size=size)
-                        sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALE", "dir": "SELL", "price": valeSell, "size": size})
+                        exchange.send_add_message(order_id=orderId, symbol="VALE", dir=Dir.SELL, price=valeSell, size=valeSize)
+                        sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALE", "dir": "SELL", "price": valeSell, "size": valeSize})
                         orderId += 1
                         
             
