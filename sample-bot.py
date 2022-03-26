@@ -123,17 +123,19 @@ def main():
 
                 if now > vale_last_print_time + 1:
                     vale_last_print_time = now
-                    print(
-                        {
-                            "vale_bid_price": vale_bid_price,
-                            "vale_ask_price": vale_ask_price,
-                        }
-                    )
+                    # print(
+                    #     {
+                    #         "vale_bid_price": vale_bid_price,
+                    #         "vale_ask_price": vale_ask_price,
+                    #     }
+                    # )
                 if vale_bid_price > valebzPrice:
                     if ownedVale > 0:
-                        exchange.send_add_message(order_id=orderId, symbol="VALE", dir=Dir.SELL, price=valbz_bid_price, size=ownedVale)
+                        exchange.send_add_message(order_id=orderId, symbol="VALE", dir=Dir.SELL, price=vale_bid_price, size=ownedVale)
                         sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALE", "dir": "SELL", "price": valeSell, "size": ownedVale})
                         orderId += 1
+                        print(f"Selling {ownedVale} Vale for {vale_bid_price}")
+                        ownedVale = 0
             if symbol == "VALBZ":
 
                 def best_price(side):
@@ -153,7 +155,8 @@ def main():
                             exchange.send_add_message(order_id=orderId, symbol="VALE", dir=Dir.BUY, price=valeSell, size=valeSize)
                             sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALBZ", "dir": "BUY", "price": valbz_bid_price, "size": valeSize})
                             orderId += 1
-                            
+                            ownedVale = 10
+                            print(f"Buying {valeSize} Vale for {valeSell}")
                         # if valbz_bid_price > valeSell and valeSize <= 10:
                         #     exchange.send_add_message(order_id=orderId, symbol="VALE", dir=Dir.BUY, price=valeSell, size=valeSize)
                         #     sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALBZ", "dir": "BUY", "price": valbz_bid_price, "size": valeSize})
