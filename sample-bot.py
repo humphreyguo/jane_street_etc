@@ -166,14 +166,14 @@ def main():
                         #     orderId += 1
                 now = time.time()
 
-                if now > vale_last_print_time + 1:
-                    valbz_last_print_time = now
-                    print(
-                        {
-                            "valbz_bid_price": valbz_bid_price,
-                            "valbz_ask_price": valbz_ask_price,
-                        }
-                    )
+                # if now > vale_last_print_time + 1:
+                #     valbz_last_print_time = now
+                #     print(
+                #         {
+                #             "valbz_bid_price": valbz_bid_price,
+                #             "valbz_ask_price": valbz_ask_price,
+                #         }
+                #     )
                     
             
                 
