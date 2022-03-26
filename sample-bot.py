@@ -65,7 +65,7 @@ def main():
     
     buyOrders = deque()
     sellOrders = deque()
-    
+        
     while True:
         
         while len(buyOrders) > 0:
@@ -81,6 +81,9 @@ def main():
                 "order_id": sellOrders.popleft()
             };
             exchange._write_message(msg)
+            
+        print(buyOrders)
+        print(sellOrders)
         
         message = exchange.read_message()
         
@@ -124,6 +127,7 @@ def main():
             for i in range(len(buy)):
                 if buy[i][0] > 1000:
                     buyOrders.append({"type":"add", "symbol": "BOND", "dir": "SELL", "price": buy[i][0], "size": buy[i][1]})
+
             for i in range(len(sell)):
                 if sell[i][0] < 1000:
                     sellOrders.append({"type":"add", "symbol": "BOND", "dir": "BUY", "price": sell[i][0], "size": sell[i][1]})
