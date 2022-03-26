@@ -66,7 +66,7 @@ def main():
     buyOrders = deque()
     sellOrders = deque()
     
-    i = 1
+    orderId = 1
     while True:
         
         # print(buyOrders)
@@ -127,13 +127,15 @@ def main():
             sell = message["sell"]
             for i in range(len(buy)):
                 if buy[i][0] > 1000:
-                    buyOrders.append({"type":"add", "order_id": i, "symbol": "BOND", "dir": "SELL", "price": buy[i][0], "size": buy[i][1]})
-                    i+=1
+                    exchange.send_add_message(order_id=orderId, symbol="BOND", dir=Dir.SELL, price=buy[i][0], size=buy[i][1])
+                    buyOrders.append({"type":"add", "order_id": orderId, "symbol": "BOND", "dir": "SELL", "price": buy[i][0], "size": buy[i][1]})
+                    orderId+=1
 
             for i in range(len(sell)):
                 if sell[i][0] < 1000:
-                    sellOrders.append({"type":"add", "order_id": i, "symbol": "BOND", "dir": "BUY", "price": sell[i][0], "size": sell[i][1]})
-                    i+=1
+                    exchange.send_add_message(order_id=orderId, symbol="BOND", dir=Dir.BUY, price=sell[i][0], size=sell[i][1])
+                    sellOrders.append({"type":"add", "order_id": orderId, "symbol": "BOND", "dir": "BUY", "price": sell[i][0], "size": sell[i][1]})
+                    orderId+=1
             
             message = exchange.read_message()
             
