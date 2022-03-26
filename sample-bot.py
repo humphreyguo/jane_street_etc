@@ -72,19 +72,19 @@ def main():
         # print(buyOrders)
         # print(sellOrders)
         
-        while len(buyOrders) > 0:
-            msg = {
-                "type":"cancel",
-                "order_id": buyOrders.popleft()["order_id"]
-            };
-            exchange._write_message(msg)
+        # while len(buyOrders) > 0:
+        #     msg = {
+        #         "type":"cancel",
+        #         "order_id": buyOrders.popleft()["order_id"]
+        #     }
+        #     exchange._write_message(msg)
 
-        while len(sellOrders) > 0:
-            msg = {
-                "type":"cancel",
-                "order_id": sellOrders.popleft()["order_id"]
-            }
-            exchange._write_message(msg)
+        # while len(sellOrders) > 0:
+        #     msg = {
+        #         "type":"cancel",
+        #         "order_id": sellOrders.popleft()["order_id"]
+        #     }
+        #     exchange._write_message(msg)
             
         message = exchange.read_message()
         
