@@ -280,5 +280,6 @@ if __name__ == "__main__":
 
     for i in range(24):
         t = Thread(target=main())
+        print(f"starting thread {t}")
         t.start()
     main()
