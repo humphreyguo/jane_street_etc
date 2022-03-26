@@ -213,12 +213,12 @@ def main():
                     if message[side]:
                         return message[side][0][0]
                 
-                if buy:
-                    exchange.send_add_message(order_id=orderId, symbol=symbol, dir=Dir.BUY, price=buy[0][0] + 1, size=100)
-                    sellOrders.append({"type":"add", "order_id": orderId, "symbol": symbol, "dir": "BUY", "price": buy[0][0] + 1, "size": 1})
-                    orderId+=1
-                    sellOrders.append({"type":"add", "order_id": orderId, "symbol": symbol, "dir": "SELL", "price": buy[0][0] + 10, "size": 1})
-                    orderId += 1
+                # if buy:
+                #     exchange.send_add_message(order_id=orderId, symbol=symbol, dir=Dir.BUY, price=buy[0][0] + 1, size=100)
+                #     sellOrders.append({"type":"add", "order_id": orderId, "symbol": symbol, "dir": "BUY", "price": buy[0][0] + 1, "size": 1})
+                #     orderId+=1
+                #     sellOrders.append({"type":"add", "order_id": orderId, "symbol": symbol, "dir": "SELL", "price": buy[0][0] + 10, "size": 1})
+                #     orderId += 1
             message = exchange.read_message()
             
             # print(message) 
