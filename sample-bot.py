@@ -69,8 +69,8 @@ def main():
     i = 1
     while True:
         
-        print(buyOrders)
-        print(sellOrders)
+        # print(buyOrders)
+        # print(sellOrders)
         
         while len(buyOrders) > 0:
             msg = {
