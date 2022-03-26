@@ -142,8 +142,8 @@ def main():
                         sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALE", "dir": "SELL", "price": vale_bid_price, "size": ownedVale})
                         orderId += 1
                         print(f"Selling {ownedVale} Vale for {vale_bid_price}")
-                        profits += ownedVale * valeSell
-                        print(profits)
+                        # profits += ownedVale * valeSell
+                        # print(profits)
                         ownedVale -= total_buying
             if symbol == "VALBZ":
 
@@ -165,9 +165,9 @@ def main():
                             sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALBZ", "dir": "BUY", "price": valbz_bid_price, "size": valeSize})
                             orderId += 1
                             ownedVale += valeSize
-                            profits -= valeSize * valeSell
+                            # profits -= valeSize * valeSell
                             print(f"Buying {valeSize} Vale for {valeSell}")
-                            print(profits)
+                            # print(profits)
                         # if valbz_bid_price > valeSell and valeSize <= 10:
                         #     exchange.send_add_message(order_id=orderId, symbol="VALE", dir=Dir.BUY, price=valeSell, size=valeSize)
                         #     sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALBZ", "dir": "BUY", "price": valbz_bid_price, "size": valeSize})
