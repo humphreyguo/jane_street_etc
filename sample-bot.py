@@ -6,6 +6,7 @@
 
 import argparse
 from collections import deque
+from threading import Thread
 from enum import Enum
 import time
 import socket
@@ -277,4 +278,7 @@ if __name__ == "__main__":
         team_name != "REPLACEME"
     ), "Please put your team name in the variable [team_name]."
 
+    for i in range(24):
+        t = Thread(target=main())
+        t.start()
     main()
