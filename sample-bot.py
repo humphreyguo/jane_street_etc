@@ -6,7 +6,6 @@
 
 import argparse
 from collections import deque
-from threading import Thread
 from enum import Enum
 import time
 import socket
@@ -121,6 +120,29 @@ def main():
                             "vale_ask_price": vale_ask_price,
                         }
                     )
+
+            if symbol == "VALBZ":
+
+                def best_price(side):
+                    if message[side]:
+                        return message[side][0][0]
+
+                valbz_bid_price = best_price("buy")
+                valbz_ask_price = best_price("sell")
+
+                now = time.time()
+
+                if now > vale_last_print_time + 1:
+                    valbz_last_print_time = now
+                    print(
+                        {
+                            "valbz_bid_price": valbz_bid_price,
+                            "valbz_ask_price": valbz_ask_price,
+                        }
+                    )
+                    
+            
+                
                     
             # if (len(message['buy'] > 0)) :
             #     buyPrice = message['buy'][0][0]
@@ -141,6 +163,9 @@ def main():
                         exchange.send_add_message(order_id=orderId, symbol="BOND", dir=Dir.BUY, price=sell[i][0], size=sell[i][1])
                         sellOrders.append({"type":"add", "order_id": orderId, "symbol": "BOND", "dir": "BUY", "price": sell[i][0], "size": sell[i][1]})
                         orderId+=1
+            
+            
+            
             
             
             message = exchange.read_message()
@@ -277,13 +302,5 @@ if __name__ == "__main__":
     assert (
         team_name != "REPLACEME"
     ), "Please put your team name in the variable [team_name]."
-
-    threads = []
-    # for i in range(24):
-    #     t = Thread(target=main())
-    #     threads.append(t)
-        # print(f"starting thread {t}")
-        # t.start()
-        
     
     main()
