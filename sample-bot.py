@@ -128,15 +128,15 @@ def main():
             for i in range(len(buy)):
                 if buy[i][0] > 1000:
                     print(buy[i])
-                    exchange.send_add_message(order_id=orderId, symbol="BOND", dir=Dir.SELL, price=buy[i][0], size=buy[i][1])
-                    buyOrders.append({"type":"add", "order_id": orderId, "symbol": "BOND", "dir": "SELL", "price": buy[i][0], "size": buy[i][1]})
+                    exchange.send_add_message(order_id=orderId, symbol="BOND", dir=Dir.SELL, price=buy[i][0]//buy[i][1], size=buy[i][1])
+                    buyOrders.append({"type":"add", "order_id": orderId, "symbol": "BOND", "dir": "SELL", "price": buy[i][0]//buy[i][1], "size": buy[i][1]})
                     orderId+=1
 
             for i in range(len(sell)):
                 if sell[i][0] < 1000:
                     print(sell[i])
-                    exchange.send_add_message(order_id=orderId, symbol="BOND", dir=Dir.BUY, price=sell[i][0], size=sell[i][1])
-                    sellOrders.append({"type":"add", "order_id": orderId, "symbol": "BOND", "dir": "BUY", "price": sell[i][0], "size": sell[i][1]})
+                    exchange.send_add_message(order_id=orderId, symbol="BOND", dir=Dir.BUY, price=sell[i][0]//sell[i][1], size=sell[i][1])
+                    sellOrders.append({"type":"add", "order_id": orderId, "symbol": "BOND", "dir": "BUY", "price": sell[i][0]//sell[i][1], "size": sell[i][1]})
                     orderId+=1
             
             message = exchange.read_message()
