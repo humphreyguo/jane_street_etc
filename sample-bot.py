@@ -78,7 +78,7 @@ def main():
                 "order_id": buyOrders.popleft()["order_id"]
             };
             print(msg)
-            exchange._write_message(msg)["order_id"]
+            exchange._write_message(msg)
 
         while len(sellOrders) > 0:
             msg = {
