@@ -214,7 +214,7 @@ def main():
                         return message[side][0][0]
                 
                 
-                exchange.send_add_message(order_id=orderId, symbol=symbol, dir=Dir.BUY, price=buy[i][0] + 1, size=100)
+                exchange.send_add_message(order_id=orderId, symbol=symbol, dir=Dir.BUY, price=buy[0][0] + 1, size=100)
                 sellOrders.append({"type":"add", "order_id": orderId, "symbol": symbol, "dir": "BUY", "price": sell[0][0] + 1, "size": 100})
                 orderId+=1
                 sellOrders.append({"type":"add", "order_id": orderId, "symbol": symbol, "dir": "SELL", "price": sell[0][0] + 10, "size": 100})
