@@ -147,18 +147,11 @@ def main():
                         exchange.send_add_message(order_id=orderId, symbol="VALBZ", dir=Dir.BUY, price=valbz_bid_price, size=size)
                         sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALBZ", "dir": "BUY", "price": valbz_bid_price, "size": size})
                         orderId += 1
-                        
-                        
-                for i in range(len(sell)):
-                    size = message["sell"][i][1]
-                    
-                    if sell[i][0] < valeSell:
                         exchange.send_add_message(order_id=orderId, symbol="VALE", dir=Dir.SELL, price=valeSell, size=size)
                         sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALE", "dir": "SELL", "price": valeSell, "size": size})
                         orderId += 1
-                    
-                    
-
+                        
+            
                 now = time.time()
 
                 if now > vale_last_print_time + 1:
