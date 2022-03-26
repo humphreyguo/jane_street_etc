@@ -72,19 +72,19 @@ def main():
         # print(buyOrders)
         # print(sellOrders)
         
-        # while len(buyOrders) > 0:
-        #     msg = {
-        #         "type":"cancel",
-        #         "order_id": buyOrders.popleft()["order_id"]
-        #     }
-        #     exchange._write_message(msg)
+        while len(buyOrders) > 0:
+            msg = {
+                "type":"cancel",
+                "order_id": buyOrders.popleft()["order_id"]
+            }
+            exchange._write_message(msg)
 
-        # while len(sellOrders) > 0:
-        #     msg = {
-        #         "type":"cancel",
-        #         "order_id": sellOrders.popleft()["order_id"]
-        #     }
-        #     exchange._write_message(msg)
+        while len(sellOrders) > 0:
+            msg = {
+                "type":"cancel",
+                "order_id": sellOrders.popleft()["order_id"]
+            }
+            exchange._write_message(msg)
             
         message = exchange.read_message()
         
@@ -127,12 +127,14 @@ def main():
             sell = message["sell"]
             for i in range(len(buy)):
                 if buy[i][0] > 1000:
+                    print(buy[i])
                     exchange.send_add_message(order_id=orderId, symbol="BOND", dir=Dir.SELL, price=buy[i][0], size=buy[i][1])
                     buyOrders.append({"type":"add", "order_id": orderId, "symbol": "BOND", "dir": "SELL", "price": buy[i][0], "size": buy[i][1]})
                     orderId+=1
 
             for i in range(len(sell)):
                 if sell[i][0] < 1000:
+                    print(sell[i])
                     exchange.send_add_message(order_id=orderId, symbol="BOND", dir=Dir.BUY, price=sell[i][0], size=sell[i][1])
                     sellOrders.append({"type":"add", "order_id": orderId, "symbol": "BOND", "dir": "BUY", "price": sell[i][0], "size": sell[i][1]})
                     orderId+=1
