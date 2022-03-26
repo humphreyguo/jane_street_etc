@@ -114,6 +114,9 @@ def main():
                 def best_price(side):
                     if message[side]:
                         return message[side][0][0]
+                def best_price_amount(side):
+                    if message[side]:
+                        return message[side][0][1]
 
                 vale_bid_price = best_price("buy")
                 vale_ask_price = best_price("sell")
@@ -131,11 +134,14 @@ def main():
                     # )
                 if vale_bid_price and valebzPrice and vale_bid_price > valebzPrice:
                     if ownedVale > 0:
-                        exchange.send_add_message(order_id=orderId, symbol="VALE", dir=Dir.SELL, price=vale_bid_price, size=ownedVale)
+                        total_buying = best_price_amount("buy")
+                        
+                        
+                        exchange.send_add_message(order_id=orderId, symbol="VALE", dir=Dir.SELL, price=vale_bid_price, size=total_buying)
                         sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALE", "dir": "SELL", "price": valeSell, "size": ownedVale})
                         orderId += 1
                         print(f"Selling {ownedVale} Vale for {vale_bid_price}")
-                        ownedVale = 0
+                        ownedVale -= total_buying
             if symbol == "VALBZ":
 
                 def best_price(side):
