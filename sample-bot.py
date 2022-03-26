@@ -103,6 +103,8 @@ def main():
         elif message["type"] == "book":
             symbol = message['symbol']
             
+            buy = message["buy"]
+            sell = message["sell"]
             
             if symbol == "VALE":
 
@@ -131,22 +133,29 @@ def main():
                 def best_price(side):
                     if message[side]:
                         return message[side][0][0]
-                    
-                size = message["size"]
+                
+                
+                for i in range(len(buy)):
+                    size = message["buy"][i][1]
+                
 
-                valbz_bid_price = best_price("buy")
-                valbz_ask_price = best_price("sell")
+                    valbz_bid_price = best_price("buy")
+                    valbz_ask_price = best_price("sell")
                 
                 
-                
-                
-                if valbz_bid_price < valeSell:
-                    exchange.send_add_message(order_id=orderId, symbol="VALBZ", dir=Dir.BUY, price=valbz_bid_price, size=size)
-                    sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALBZ", "dir": "BUY", "price": valbz_bid_price, "size": size})
-                    orderId += 1
-                    exchange.send_add_message(order_id=orderId, symbol="VALE", dir=Dir.SELL, price=valeSell, size=size)
-                    sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALE", "dir": "SELL", "price": valeSell, "size": size})
-                    orderId += 1
+                    if valbz_bid_price < valeSell:
+                        exchange.send_add_message(order_id=orderId, symbol="VALBZ", dir=Dir.BUY, price=valbz_bid_price, size=size)
+                        sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALBZ", "dir": "BUY", "price": valbz_bid_price, "size": size})
+                        orderId += 1
+                        
+                        
+                for i in range(len(sell)):
+                    size = message["sell"][i][1]
+                    
+                    if sell[i][0] < valeSell:
+                        exchange.send_add_message(order_id=orderId, symbol="VALE", dir=Dir.SELL, price=valeSell, size=size)
+                        sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALE", "dir": "SELL", "price": valeSell, "size": size})
+                        orderId += 1
                     
                     
 
@@ -166,8 +175,7 @@ def main():
                     
             # if (len(message['buy'] > 0)) :
             #     buyPrice = message['buy'][0][0]
-            buy = message["buy"]
-            sell = message["sell"]
+            
             
             if (symbol == "BOND"):
                 for i in range(len(buy)):
