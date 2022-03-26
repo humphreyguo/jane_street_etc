@@ -151,7 +151,7 @@ def main():
                     valbz_ask_price = best_price("sell")
                     if valbz_bid_price and valeSell:
                         if valbz_bid_price > valeSell and ownedVale < 10:
-                            valeSize = min(10-valeSize, valeSize)
+                            valeSize = min(10-ownedVale, valeSize)
                             exchange.send_add_message(order_id=orderId, symbol="VALE", dir=Dir.BUY, price=valeSell, size=valeSize)
                             sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALBZ", "dir": "BUY", "price": valbz_bid_price, "size": valeSize})
                             orderId += 1
