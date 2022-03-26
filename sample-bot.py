@@ -77,15 +77,13 @@ def main():
                 "type":"cancel",
                 "order_id": buyOrders.popleft()["order_id"]
             };
-            print(msg)
             exchange._write_message(msg)
 
         while len(sellOrders) > 0:
             msg = {
                 "type":"cancel",
-                "order_id": sellOrders.popleft()
+                "order_id": sellOrders.popleft()["order_id"]
             }
-            print(msg)
             exchange._write_message(msg)
             
         message = exchange.read_message()
@@ -127,8 +125,6 @@ def main():
             #     buyPrice = message['buy'][0][0]
             buy = message["buy"]
             sell = message["sell"]
-            print(f"buy is {buy}")
-            print(f"sell is {sell}")
             for i in range(len(buy)):
                 if buy[i][0] > 1000:
                     buyOrders.append({"type":"add", "order_id": i, "symbol": "BOND", "dir": "SELL", "price": buy[i][0], "size": buy[i][1]})
@@ -141,7 +137,8 @@ def main():
             
             message = exchange.read_message()
             
-            print(message) # is ack message with id
+            # print(message) 
+            # is ack message with id
             # return buy_trades + sell_trades
 
 
