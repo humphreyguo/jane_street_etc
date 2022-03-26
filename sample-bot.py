@@ -121,8 +121,8 @@ def main():
             #     buyPrice = message['buy'][0][0]
             
             message = exchange.read_message()
-            buy = message['BUY']
-            sell = message['SELL']
+            buy = message["buy"]
+            sell = message["sell"]
             buy_trades = []
             for i in range(len(buy)):
                 if buy[i][0] > 1000:
