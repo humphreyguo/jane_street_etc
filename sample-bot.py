@@ -208,17 +208,17 @@ def main():
                         sellOrders.append({"type":"add", "order_id": orderId, "symbol": "BOND", "dir": "BUY", "price": sell[i][0], "size": sell[i][1]})
                         orderId+=1
             
-            if symbol in ["GS", "MS", "WFC", "XLF"]:
-                def best_price(side):
-                    if message[side]:
-                        return message[side][0][0]
+            # if symbol in ["GS", "MS", "WFC", "XLF"]:
+            #     def best_price(side):
+            #         if message[side]:
+            #             return message[side][0][0]
                 
                 
-                exchange.send_add_message(order_id=orderId, symbol=symbol, dir=Dir.BUY, price=buy[0][0] + 1, size=100)
-                sellOrders.append({"type":"add", "order_id": orderId, "symbol": symbol, "dir": "BUY", "price": 2000 + 1, "size": 100})
-                orderId+=1
-                sellOrders.append({"type":"add", "order_id": orderId, "symbol": symbol, "dir": "SELL", "price": 2000 + 10, "size": 100})
-                orderId += 1
+            #     exchange.send_add_message(order_id=orderId, symbol=symbol, dir=Dir.BUY, price=buy[0][0] + 1, size=100)
+            #     sellOrders.append({"type":"add", "order_id": orderId, "symbol": symbol, "dir": "BUY", "price": 2000 + 1, "size": 100})
+            #     orderId+=1
+            #     sellOrders.append({"type":"add", "order_id": orderId, "symbol": symbol, "dir": "SELL", "price": 2000 + 10, "size": 100})
+            #     orderId += 1
             message = exchange.read_message()
             
             # print(message) 
