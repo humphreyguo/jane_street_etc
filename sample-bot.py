@@ -278,9 +278,12 @@ if __name__ == "__main__":
         team_name != "REPLACEME"
     ), "Please put your team name in the variable [team_name]."
 
-    for i in range(24):
-        print(i)
-        # t = Thread(target=main())
+    threads = []
+    # for i in range(24):
+    #     t = Thread(target=main())
+    #     threads.append(t)
         # print(f"starting thread {t}")
         # t.start()
-    # main()
+        
+    
+    main()
