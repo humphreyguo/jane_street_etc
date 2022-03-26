@@ -121,14 +121,12 @@ def main():
             #     buyPrice = message['buy'][0][0]
             buy = message["buy"]
             sell = message["sell"]
-            buy_trades = []
             for i in range(len(buy)):
                 if buy[i][0] > 1000:
-                    buy_trades.append({"type":"add", "symbol": "BOND", "dir": "SELL", "price": buy[i][0], "size": buy[i][1]})
-            sell_trades = []
+                    buyOrders.append({"type":"add", "symbol": "BOND", "dir": "SELL", "price": buy[i][0], "size": buy[i][1]})
             for i in range(len(sell)):
                 if sell[i][0] < 1000:
-                    sell_trades.append({"type":"add", "symbol": "BOND", "dir": "BUY", "price": sell[i][0], "size": sell[i][1]})
+                    sellOrders.append({"type":"add", "symbol": "BOND", "dir": "BUY", "price": sell[i][0], "size": sell[i][1]})
             
             message = exchange.read_message()
             
