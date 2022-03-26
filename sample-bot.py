@@ -129,7 +129,7 @@ def main():
                     #         "vale_ask_price": vale_ask_price,
                     #     }
                     # )
-                if vale_bid_price > valebzPrice:
+                if vale_bid_price and valebzPrice and vale_bid_price > valebzPrice:
                     if ownedVale > 0:
                         exchange.send_add_message(order_id=orderId, symbol="VALE", dir=Dir.SELL, price=vale_bid_price, size=ownedVale)
                         sellOrders.append({"type":"add", "order_id": orderId, "symbol": "VALE", "dir": "SELL", "price": valeSell, "size": ownedVale})
